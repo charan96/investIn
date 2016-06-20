@@ -1,39 +1,13 @@
 from django.shortcuts import render
 from .forms import submitForm
-import re, csv
+import re, csv, urllib2
 
-optionCodes = {'y0': 'Trailing Annual Dividend Yield In Percent', 'd2': 'Trade Date', 'x0': 'Stock Exchange',
-		   'd0': 'Trailing Annual Dividend Yield', 'd1': 'Last Trade Date', 'q0': 'Ex Dividend Date',
-		   'g6': 'Holdings Gain (Realtime)', 'g5': 'Holdings Gain Percent (Realtime)', 'g4': 'Holdings Gain',
-		   'g3': 'Annualized Gain', 'g1': 'Holdings Gain Percent', 'g0': 'Days Low', 't8': 'Oneyr Target Price',
-		   't6': 'Trade Links', 't7': 'Ticker Trend', 't1': 'Last Trade Time', 'l2': 'High Limit',
-		   'l3': 'Low Limit', 'l0': 'Last Trade With Time', 'l1': 'Last Trade Price Only', 'j4': 'E B I T D A',
-		   'j5': 'Change From Year Low', 'j6': 'Percent Change From Year Low', 'j0': 'Year Low',
-		   'j1': 'Market Capitalization', 'j2': 'Shares Outstanding', 'j3': 'Market Cap (Realtime)',
-		   'b4': 'Book Value Per Share', 'b6': 'Bid Size', 'w4': 'Days Value Change (Realtime)', 'b0': 'Bid',
-		   'w1': 'Days Value Change', 'b3': 'Bid (Realtime)', 'o0': 'Open', 'e9': 'E P S Estimate Next Quarter',
-		   'e8': 'E P S Estimate Next Year', 'e7': 'E P S Estimate Current Year', 'e0': 'Diluted E P S',
-		   'r5': 'P E G Ratio', 'r6': 'Price E P S Estimate Current Year', 'r7': 'Price E P S Estimate Next Year',
-		   'r0': 'P E Ratio', 'r1': 'Dividend Pay Date', 'r2': 'P E Ratio (Realtime)', 'v1': 'Holdings Value',
-		   'h0': 'Days High', 'm5': 'Change From Two Hundredday Moving Average',
-		   'm4': 'Two Hundredday Moving Average', 'm7': 'Change From Fiftyday Moving Average',
-		   'm6': 'Percent Change From Two Hundredday Moving Average', 'm0': 'Days Range',
-		   'm3': 'Fiftyday Moving Average', 'm2': 'Days Range (Realtime)',
-		   'm8': 'Percent Change From Fiftyday Moving Average', 'c8': 'After Hours Change (Realtime)',
-		   'c3': 'Commission', 'c1': 'Change', 'c0': 'Change<i> Change In Percent', 'c6': 'Change (Realtime)',
-		   'c4': 'Currency', 'p2': 'Change In Percent', 'p0': 'Previous Close', 'p1': 'Price Paid',
-		   'p6': 'Price Book', 'p5': 'Price Sales', 'f0': 'Trade Links Additional', 'b2': 'Ask (Realtime)',
-		   'f6': 'Shares Float', 'w0': 'Year Range', 's1': 'Shares Owned', 's0': 'Symbol', 's7': 'Short Ratio',
-		   's6': 'Revenue', 'k3': 'Last Trade Size', 'k2': 'Change In Percent (Realtime)',
-		   'k1': 'Last Trade (Realtime) With Time', 'k0': 'Year High', 'k5': 'Change In Percent From Year High',
-		   'k4': 'Change From Year High', 'i0': 'More Info', 'i5': 'Order Book (Realtime)', 'v0': 'Volume',
-		   'a0': 'Ask', 'a2': 'Average Daily Volume', 'a5': 'Ask Size', 'v7': 'Holdings Value (Realtime)',
-		   'n0': 'Name', 'n4': 'Notes'}
-defOpts = "nophga2j3r2yba"
+defOpts = "nophga2j3r2yl1"
 
 
 def index(request):
 	formClass = submitForm
+	codeDict = makeCodeDict()
 
 	if request.method == 'POST':
 		form = formClass(data=request.POST)
@@ -41,21 +15,74 @@ def index(request):
 		if form.is_valid():
 			ticker = str(request.POST.get('ticker', '')).upper()
 			if sanitizeTicker(ticker):
-				requestURL = createReqURL(ticker, defOpts)
-				return render(request, 'investIn/demoDisplayTicker.html', {'ticker': ticker, 'url': requestURL})
+				stockData = getStockValueList(ticker, defOpts)
+				templateOpts = readOptsAndCreateDict(defOpts, stockData)
+				return render(request, 'investIn/demoDisplayTicker.html',
+						  {'ticker': ticker, 'opts': templateOpts, 'codeDict': codeDict})
 			else:
 				return render(request, 'investIn/error.html', {'ticker': ticker})
 
 	return render(request, 'investIn/index.html', {'form': submitForm})
 
 
+# Make sure the ticker is 1 to 4 letters long
 def sanitizeTicker(ticker):
 	if re.match(r'^[A-Z]{1,5}$', ticker):
 		return True
 	return False
 
 
+# Adds ticker and options to the base URL to create the request URL
 def createReqURL(ticker, opts):
 	baseURL = "http://finance.yahoo.com/d/quotes.csv?s="
 	optionsURL = "&f="
 	return baseURL + ticker + optionsURL + opts
+
+
+# Uses codes.txt file to make a dict with codes and descriptions
+def makeCodeDict():
+	infile = 'investIn/static/codes.txt'
+	reader = csv.reader(open(infile, 'r'))
+	codeDict = {}
+	for line in reader:
+		code, desc = line
+		codeDict[code] = desc
+	return codeDict
+
+
+# Runs the URL and gets a file object with CSV string of data
+def getStockValueList(ticker, opts):
+	requestURL = createReqURL(ticker, opts)
+
+	# runs the URL and returns a file object with the stock
+	# data in a CSV format
+	fileObj = urllib2.urlopen(requestURL)
+
+	# using CSV reader to split the file object data into a list
+	# of the stock data values
+	for stockDataList in csv.reader(fileObj):
+		return stockDataList
+
+
+# 1) Creates a list of option codes selected in the same order entered
+# 2) Creates a dict with option and data from stockData (data from running URL)
+#    and adds the previous list to the optDict
+def readOptsAndCreateDict(opts, stockData):
+	optDict = {}
+	optionCodeList = []
+
+	for index, option in enumerate(opts):
+		if index + 1 > len(opts):
+			break
+		elif option.isdigit():
+			continue
+		elif opts[index + 1].isdigit():
+			optionCodeList.append(option + opts[index + 1])
+		else:
+			optionCodeList.append(option)
+
+	for index, option in enumerate(optionCodeList):
+		optDict[option] = stockData[index]
+
+	optDict['optCodeList'] = optionCodeList
+	return optDict

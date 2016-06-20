@@ -1,19 +1,83 @@
 {% load crispy_forms_tags %}
+{% load staticfiles %}
+{% load getDictVal %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Demo Display</title>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
 </head>
+<!--<body background="{% static "blackback.jpg" %}" background-size=100%>-->
 <body>
     <h1 class="text-center text-success">Invest In</h1><hr>
 
     <br><br><br>
 
     <p class="lead text-center">Ticker Selected: {{ ticker }} </p>
-    <p class="lead text-center">URL request: <a href={{ url }}>{{ url }}</a></p>
+
+    <div class="col-md-6 col-md-offset-2">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for option in opts.optCodeList %}
+                    <tr>
+                        <td>{{ codeDict|getDictVal:option }}</td>
+                        <td>{{ opts|getDictVal:option }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!--{% for option in opts.optCodeList %}
+                <p class="lead text-center">{{ option }}: {{ opts|getDictVal:option }}</p>
+            {% endfor %}
+
+    <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>John</td>
+        <td>Doe</td>
+      </tr>
+      <tr>
+        <td>Mary</td>
+        <td>Moe</td>
+      </tr>
+      <tr>
+        <td>July</td>
+        <td>Dooley</td>
+      </tr>
+    </tbody>
+  </table>-->
+
+
+   <!-- <div class="row">
+        <div class="col-md-3 col-md-offset-3">
+            <p>Name: {{url}} </p>
+        </div>
+        <div class="col-md-3">
+            <p>Name: {{url}} </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-md-offset-3">
+            <p>Name: {{url}} </p>
+        </div>
+    </div>-->
 </body>
 </html>
