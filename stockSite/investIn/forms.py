@@ -30,16 +30,16 @@ class submitForm(forms.Form):
 		self.helper.form_method = 'post'
 		self.helper.form_action = ""
 		self.helper.form_show_labels = False
-
 		self.helper.layout = Layout(
-			Div('submit', css_class="col-lg-4 col-lg-offset-4"),
+			Div('submit', css_class="col-md-6 col-lg-offset-4"),
 			PrependedText('ticker', 'Ticker Symbol&nbsp', autocomplete='off'),
 			HTML("&nbsp&nbsp&nbsp&nbsp&nbsp"),
 			FormActions(
-				Submit('submit', 'Submit', css_class="btn btn-primary")
+				Submit('submit', 'Submit', css_class="btn btn-success")
 			),
 			HTML('<br><br>Month-Day-Year'),
 			'month',
 			'date',
 			'year',
 		)
+

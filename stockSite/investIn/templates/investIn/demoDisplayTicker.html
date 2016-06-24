@@ -12,14 +12,35 @@
 </head>
 <!--<body background="{% static "blackback.jpg" %}" background-size=100%>-->
 <body>
-    <h1 class="text-center text-success">Invest In</h1><hr>
+    <h1 class="text-center text-primary">Invest In</h1>
+    <hr>
+    <div class="col-md-3 col-md-offset-9" style="position:fixed">
+        <table class="table table-hover">
+            <tbody>
+                <tr>
+                    <td class="lead text-center"><a href="/investIn" style="text-decoration:none">Home</a></td>
+                </tr>
+                <tr>
+                    <td class="lead text-center"><a href="#" style="text-decoration:none">Basic Stats</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-    <br><br><br>
+    <!--<a href="/investIn" class="btn btn-warning" role="button">Home</a>-->
 
-    <p class="lead text-center">Ticker Selected: {{ ticker }} </p>
+    <div class="col-md-6 col-md-offset-1">
+        <h3 class="text-center">{{ opts|getDictVal:"n" }}</h3>
+        {% if opts|getDictVal:"l1" >= opts|getDictVal:"p" %}
+            <h2 class="text-success text-center">{{ opts|getDictVal:"l1" }}</h2>
+        {% else %}
+            <h2 class="text-danger text-center">{{ opts|getDictVal:"l1" }}</h2>
+        {% endif %}
+    </div>
 
-    <div class="col-md-6 col-md-offset-2">
-        <table class="table table-striped">
+    <!--<div class="col-md-6 col-md-offset-4">-->
+    <div class="col-md-6 col-md-offset-1">
+        <table class="table">
             <thead>
                 <tr>
                     <th></th>
@@ -38,46 +59,5 @@
         </table>
     </div>
 
-    <!--{% for option in opts.optCodeList %}
-                <p class="lead text-center">{{ option }}: {{ opts|getDictVal:option }}</p>
-            {% endfor %}
-
-    <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Code</th>
-        <th>Value</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>John</td>
-        <td>Doe</td>
-      </tr>
-      <tr>
-        <td>Mary</td>
-        <td>Moe</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-      </tr>
-    </tbody>
-  </table>-->
-
-
-   <!-- <div class="row">
-        <div class="col-md-3 col-md-offset-3">
-            <p>Name: {{url}} </p>
-        </div>
-        <div class="col-md-3">
-            <p>Name: {{url}} </p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3 col-md-offset-3">
-            <p>Name: {{url}} </p>
-        </div>
-    </div>-->
 </body>
 </html>
