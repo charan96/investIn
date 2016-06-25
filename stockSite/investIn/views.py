@@ -47,7 +47,11 @@ def keyStats(request, ticker):
 
 
 def charts(request, ticker):
-	pass
+	codeDict = makeCodeDict()
+	stockData = getStockValueList(ticker, defOpts)
+	templateOpts = readOptsAndCreateDict(defOpts, stockData)
+	return render(request, 'investIn/charts.html',
+			  {'ticker': ticker, 'opts': templateOpts, 'codeDict': codeDict})
 
 
 def stockIndexes(request):
