@@ -38,7 +38,7 @@ def display(request, ticker):
 
 
 def keyStats(request, ticker):
-	keyStatOpts = getBasicStatsOpts("c1")
+	keyStatOpts = getBasicStatsOpts("p2poabyr1m6m8m3m4ms6wdee7j4rr6s7p5")
 	codeDict = makeCodeDict()
 	stockData = getStockValueList(ticker, keyStatOpts)
 	templateOpts = readOptsAndCreateDict(keyStatOpts, stockData)
@@ -63,7 +63,7 @@ def customStats(request):
 
 
 def getBasicStatsOpts(additionalOpts):
-	return "nj1l1" + additionalOpts
+	return "nj1l1c1" + additionalOpts
 
 
 def sanitizeTicker(ticker):

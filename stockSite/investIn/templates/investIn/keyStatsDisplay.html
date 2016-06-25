@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
 </head>
 <body>
-    <h1 class="text-center text-primary">Invest In</h1>
+    <h1 class="text-center text-primary"><a href="/investIn" style="text-decoration:none">Invest In</a></h1>
     <hr>
     <div class="col-md-3 col-md-offset-9" style="position:fixed">
         <table class="table table-hover">
@@ -41,17 +41,154 @@
         </table>
     </div>
 
-    <div class="col-md-6 col-md-offset-1">
+    <div class="col-md-6 col-xs-offset-2">
         <h3 class="text-center">{{ opts|getDictVal:"n" }}</h3>
         {% if opts|getDictVal:"l1" >= opts|getDictVal:"p" %}
-            <!--<h2 class="text-success text-center">{{ opts|getDictVal:"l1" }}&nbsp&nbsp&nbsp&nbsp({{ opts|getDictVal:"c1" }})</h2>-->
             <span><h2 class="text-success text-center">{{ opts|getDictVal:"l1" }}&nbsp&nbsp&nbsp&nbsp<span class="lead text-center">({{ opts|getDictVal:"c1" }})</span></h2></span>
         {% else %}
-           <!-- <h2 class="text-danger text-center">{{ opts|getDictVal:"l1" }}&nbsp&nbsp&nbsp&nbsp({{ opts|getDictVal:"c1" }})</h2>-->
             <span><h2 class="text-danger text-center">{{ opts|getDictVal:"l1" }}&nbsp&nbsp&nbsp&nbsp<span class="lead text-center">({{ opts|getDictVal:"c1" }})</span></h2></span>
         {% endif %}
     </div>
 
+    <div class="container pull-left">
+        <div class="row">
+            <div class="col-md-5">
+                <table class="table">
+                    <caption class="lead text-center">Pricing</caption>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"j1" }}</td>
+                                <td>{{ opts|getDictVal:"j1" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"p" }}</td>
+                                <td>{{ opts|getDictVal:"p" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"o" }}</td>
+                                <td>{{ opts|getDictVal:"o" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"a" }}</td>
+                                <td>{{ opts|getDictVal:"a" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"b" }}</td>
+                                <td>{{ opts|getDictVal:"b" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"s6" }}</td>
+                                <td>{{ opts|getDictVal:"s6" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"y" }}</td>
+                                <td>{{ opts|getDictVal:"y" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"r1" }}</td>
+                                <td>{{ opts|getDictVal:"r1" }}</td>
+                            </tr>
+                    </tbody>
+                </table>
+            </div>
 
+            <div class="col-md-5">
+                <table class="table">
+                    <caption class="lead text-center">Averages</caption>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"p2" }}</td>
+                                <td>{{ opts|getDictVal:"p2" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"m" }}</td>
+                                <td>{{ opts|getDictVal:"m" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"m3" }}</td>
+                                <td>{{ opts|getDictVal:"m3" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"m8" }}</td>
+                                <td>{{ opts|getDictVal:"m8" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"m4" }}</td>
+                                <td>{{ opts|getDictVal:"m4" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"m6" }}</td>
+                                <td>{{ opts|getDictVal:"m6" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"w" }}</td>
+                                <td>{{ opts|getDictVal:"w" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"d" }}</td>
+                                <td>{{ opts|getDictVal:"d" }}</td>
+                            </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-5 col-md-offset-3">
+                <table class="table">
+                    <caption class="lead text-center">Ratios</caption>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"e" }}</td>
+                                <td>{{ opts|getDictVal:"e" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"e7" }}</td>
+                                <td>{{ opts|getDictVal:"e7" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"j4" }}</td>
+                                <td>{{ opts|getDictVal:"j4" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"r" }}</td>
+                                <td>{{ opts|getDictVal:"r" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"r6" }}</td>
+                                <td>{{ opts|getDictVal:"r6" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"s7" }}</td>
+                                <td>{{ opts|getDictVal:"s7" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"p5" }}</td>
+                                <td>{{ opts|getDictVal:"p5" }}</td>
+                            </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
