@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .forms import submitForm
 import re, csv, urllib2, sys
 
-defOpts = "nj1l1pohga2ry"
+defOpts = "nj1l1c1pohga2ry"
 
 
 def index(request):
@@ -29,6 +29,43 @@ def index(request):
 	return render(request, 'investIn/index.html', {'form': submitForm})
 
 
+def display(request, ticker):
+	codeDict = makeCodeDict()
+	stockData = getStockValueList(ticker, defOpts)
+	templateOpts = readOptsAndCreateDict(defOpts, stockData)
+	return render(request, 'investIn/demoDisplayTicker.html',
+			  {'ticker': ticker, 'opts': templateOpts, 'codeDict': codeDict})
+
+
+def keyStats(request, ticker):
+	keyStatOpts = getBasicStatsOpts("c1")
+	codeDict = makeCodeDict()
+	stockData = getStockValueList(ticker, keyStatOpts)
+	templateOpts = readOptsAndCreateDict(keyStatOpts, stockData)
+	return render(request, 'investIn/keyStatsDisplay.html',
+			  {'ticker': ticker, 'opts': templateOpts, 'codeDict': codeDict})
+
+
+def charts(request, ticker):
+	pass
+
+
+def stockIndexes(request):
+	pass
+
+
+def stockCompare(request):
+	pass
+
+
+def customStats(request):
+	pass
+
+
+def getBasicStatsOpts(additionalOpts):
+	return "nj1l1" + additionalOpts
+
+
 def sanitizeTicker(ticker):
 	"""
 	Make sure the ticker is 1 to 4 letters long
@@ -40,7 +77,6 @@ def sanitizeTicker(ticker):
 	return False
 
 
-#
 def createReqURL(ticker, opts):
 	"""
 	Adds ticker and options to the base URL to create the request URL
@@ -53,7 +89,6 @@ def createReqURL(ticker, opts):
 	return baseURL + ticker + optionsURL + opts
 
 
-#
 def makeCodeDict():
 	"""
 	Uses codes.txt file to make a dict with codes and descriptions
@@ -68,7 +103,6 @@ def makeCodeDict():
 	return codeDict
 
 
-#
 def getStockValueList(ticker, opts):
 	"""
 	Runs the URL and gets a file object with CSV string of data
@@ -94,7 +128,7 @@ def readOptsAndCreateDict(opts, stockData):
 	2) Creates a dict with option and data from stockData (data from running URL)
 	   and adds the previous list to the optDict
 	:param opts: string of options selected by user
-	:param stockData: the values for respective options obtained from running URL
+	:param stockData: list of values for respective options obtained from running URL
 	:return: dict of option and values and a key of 'optCodeList' is mapped to a list
 		   of options in the ordered entered by user
 	"""
@@ -119,5 +153,6 @@ def readOptsAndCreateDict(opts, stockData):
 	for index, option in enumerate(optionCodeList):
 		optDict[option] = stockData[index]
 
+	optDict['optsString'] = opts
 	optDict['optCodeList'] = optionCodeList
 	return optDict

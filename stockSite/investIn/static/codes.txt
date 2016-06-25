@@ -45,7 +45,7 @@ k3,Last Trade Size
 k4,Change From 52-week High
 k5,Percent Change From 52-week High
 l,Last Trade (With Time)
-l1,Last Trade (Price Only)
+l1,Last Trade Price
 l2,High Limit
 l3,Low Limit
 m,Day's Range

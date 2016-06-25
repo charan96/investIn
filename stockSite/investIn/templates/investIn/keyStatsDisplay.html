@@ -10,12 +10,9 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
 </head>
-<!--<body background="{% static "blackback.jpg" %}" background-size=100%>-->
 <body>
     <h1 class="text-center text-primary">Invest In</h1>
     <hr>
-
-    <!---------- SIDE BAR ---------->
     <div class="col-md-3 col-md-offset-9" style="position:fixed">
         <table class="table table-hover">
             <tbody>
@@ -23,10 +20,10 @@
                     <td class="lead text-center"><a href="/investIn" style="text-decoration:none">Home</a></td>
                 </tr>
                 <tr>
-                    <td class="lead text-center success"><a href="/investIn/display/{{ ticker }}" style="text-decoration:none">Summary</a></td>
+                    <td class="lead text-center"><a href="/investIn/display/{{ ticker }}" style="text-decoration:none">Summary</a></td>
                 </tr>
                 <tr>
-                    <td class="lead text-center"><a href="/investIn/keyStats/{{ ticker }}" style="text-decoration:none">Key Stats</a></td>
+                    <td class="lead text-center success"><a href="/investIn/keyStats/{{ ticker }}" style="text-decoration:none">Key Stats</a></td>
                 </tr>
                 <tr>
                     <td class="lead text-center"><a href="/investIn/charts/{{ ticker }}" style="text-decoration:none">Charts</a></td>
@@ -44,36 +41,17 @@
         </table>
     </div>
 
-    <!---------- STOCK NAME AND PRICE ---------->
     <div class="col-md-6 col-md-offset-1">
         <h3 class="text-center">{{ opts|getDictVal:"n" }}</h3>
         {% if opts|getDictVal:"l1" >= opts|getDictVal:"p" %}
+            <!--<h2 class="text-success text-center">{{ opts|getDictVal:"l1" }}&nbsp&nbsp&nbsp&nbsp({{ opts|getDictVal:"c1" }})</h2>-->
             <span><h2 class="text-success text-center">{{ opts|getDictVal:"l1" }}&nbsp&nbsp&nbsp&nbsp<span class="lead text-center">({{ opts|getDictVal:"c1" }})</span></h2></span>
         {% else %}
+           <!-- <h2 class="text-danger text-center">{{ opts|getDictVal:"l1" }}&nbsp&nbsp&nbsp&nbsp({{ opts|getDictVal:"c1" }})</h2>-->
             <span><h2 class="text-danger text-center">{{ opts|getDictVal:"l1" }}&nbsp&nbsp&nbsp&nbsp<span class="lead text-center">({{ opts|getDictVal:"c1" }})</span></h2></span>
         {% endif %}
     </div>
 
-    <!--<div class="col-md-6 col-md-offset-4">-->
-    <div class="col-md-6 col-md-offset-1">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for option in opts.optCodeList %}
-                    <tr>
-                        <td>{{ codeDict|getDictVal:option }}</td>
-                        <td>{{ opts|getDictVal:option }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
 
 </body>
 </html>

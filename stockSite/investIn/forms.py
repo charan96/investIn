@@ -37,9 +37,6 @@ class submitForm(forms.Form):
 			FormActions(
 				Submit('submit', 'Submit', css_class="btn btn-success")
 			),
-			HTML('<br><br>Month-Day-Year'),
-			'month',
-			'date',
-			'year',
+			HTML("<br><br>"),
+			Div('month','date','year',css_class="col-md-6 col-lg-offset-3")
 		)
-
