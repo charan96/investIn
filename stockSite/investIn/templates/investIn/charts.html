@@ -30,7 +30,7 @@
                     <td class="lead text-center success"><a href="/investIn/charts/{{ ticker }}" style="text-decoration:none">Charts</a></td>
                 </tr>
                 <tr>
-                    <td class="lead text-center"><a href="/investIn/indexes/" style="text-decoration:none">Indexes and Currencies</a></td>
+                    <td class="lead text-center"><a href="/investIn/indices/" style="text-decoration:none">World Indices</a></td>
                 </tr>
                 <tr>
                     <td class="lead text-center"><a href="/investIn/compare/" style="text-decoration:none">Compare</a></td>
@@ -47,5 +47,18 @@
     </div>
     <br><br>
 
-    <div class="col-md-offset-1"><script src="http://charts.wikinvest.com/wikinvest/wikichart/javascript/scripts.php" type="text/javascript"></script><div id="wikichartContainer_656B93D4-CB0C-B850-7326-79600B05E960"><div style="width: 390px; text-align: center; vertical-align: center; margin-top: 22px;"><a href="http://get.adobe.com/flashplayer/"><img src="http://cdn.wikinvest.com/wikinvest/images/adobe_flash_logo.gif" alt="Flash" style="border-width: 0px;"/><br/>Flash Player 9 or higher is required to view the chart<br/><strong>Click here to download Flash Player now</strong></a></div></div><script type="text/javascript">if (typeof(embedWikichart) != "undefined") {embedWikichart("http://charts.wikinvest.com/WikiChartMini.swf","wikichartContainer_656B93D4-CB0C-B850-7326-79600B05E960","600","500",{"ticker":"{{ ticker }}","liveQuote":"true","embedCodeDate":"2010-1-29","showAnnotations":"true","rollingDate":"1 day"},{});}</script></div>
+    <!----------- CHART SCRIPT ----------->
+    <div class="col-md-offset-1">
+        <script src="http://charts.wikinvest.com/wikinvest/wikichart/javascript/scripts.php" type="text/javascript"></script>
+        <div id="wikichartContainer_656B93D4-CB0C-B850-7326-79600B05E960">
+            <div style="width: 390px; text-align: center; vertical-align: center; margin-top: 22px;">
+                <a href="http://get.adobe.com/flashplayer/">
+                    <img src="http://cdn.wikinvest.com/wikinvest/images/adobe_flash_logo.gif" alt="Flash" style="border-width: 0px;"/><br/>Flash Player 9 or higher is required to view the chart<br/><strong>Click here to download Flash Player now</strong>
+                </a>
+            </div>
+        </div>
+        <script type="text/javascript">if (typeof(embedWikichart) != "undefined") {embedWikichart("http://charts.wikinvest.com/WikiChartMini.swf","wikichartContainer_656B93D4-CB0C-B850-7326-79600B05E960","600","500",{"ticker":"{{ ticker }}","liveQuote":"true","embedCodeDate":"2010-1-29","showAnnotations":"true","rollingDate":"1 day"},{});}</script>
+    </div>
+
+</body>
 </html>

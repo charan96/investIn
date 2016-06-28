@@ -17,7 +17,7 @@ class submitForm(forms.Form):
 	MONTH_CHOICES = tuple((str(element), str(element)) for element in monthList)
 	YEAR_CHOICES = tuple((str(element), str(element)) for element in yearList)
 
-	ticker = forms.CharField(required=True)
+	ticker = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'e.g. AAPL or Sbux'}))
 	date = forms.ChoiceField(choices=DATE_CHOICES, required=True, label='dates', initial=datetime.datetime.now().day)
 	month = forms.ChoiceField(choices=MONTH_CHOICES, required=True, label='months',
 					  initial=calendar.month_abbr[datetime.datetime.now().month])

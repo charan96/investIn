@@ -23,16 +23,16 @@
                     <td class="lead text-center"><a href="/investIn" style="text-decoration:none">Home</a></td>
                 </tr>
                 <tr>
-                    <td class="lead text-center success"><a href="/investIn/display/{{ ticker }}" style="text-decoration:none">Summary</a></td>
+                    <td class="lead text-center"><a href="/investIn/" style="text-decoration:none">Summary</a></td>
                 </tr>
                 <tr>
-                    <td class="lead text-center"><a href="/investIn/keyStats/{{ ticker }}" style="text-decoration:none">Key Stats</a></td>
+                    <td class="lead text-center"><a href="/investIn/" style="text-decoration:none">Key Stats</a></td>
                 </tr>
                 <tr>
-                    <td class="lead text-center"><a href="/investIn/charts/{{ ticker }}" style="text-decoration:none">Charts</a></td>
+                    <td class="lead text-center"><a href="/investIn/" style="text-decoration:none">Charts</a></td>
                 </tr>
                 <tr>
-                    <td class="lead text-center"><a href="/investIn/indices/" style="text-decoration:none">World Indices</a></td>
+                    <td class="lead text-center success"><a href="/investIn/indices/" style="text-decoration:none">World Indices</a></td>
                 </tr>
                 <tr>
                     <td class="lead text-center"><a href="/investIn/compare/" style="text-decoration:none">Compare</a></td>
@@ -44,33 +44,31 @@
         </table>
     </div>
 
-    <!---------- STOCK NAME AND PRICE ---------->
-    <div class="col-md-6 col-md-offset-1">
-        <h3 class="text-center">{{ opts|getDictVal:"n" }}</h3>
-        {% if opts|getDictVal:"l1" >= opts|getDictVal:"p" %}
-            <span><h2 class="text-success text-center">{{ opts|getDictVal:"l1" }}&nbsp&nbsp&nbsp&nbsp<span class="lead text-center">({{ opts|getDictVal:"c1" }} | {{ opts|getDictVal:"p2" }})</span></h2></span>
-        {% else %}
-            <span><h2 class="text-danger text-center">{{ opts|getDictVal:"l1" }}&nbsp&nbsp&nbsp&nbsp<span class="lead text-center">({{ opts|getDictVal:"c1" }} | {{ opts|getDictVal:"p2" }})</span></h2></span>
-        {% endif %}
-    </div>
 
-    <!--<div class="col-md-6 col-md-offset-4">-->
-    <div class="col-md-6 col-md-offset-1">
+    <div class="col-md-9">
         <table class="table">
             <thead>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
+            <tr>
+                <th>Stock Index</th>
+                <th>Price</th>
+                <th>Change</th>
+                <th>Change in Percentage</th>
+            </tr>
             </thead>
             <tbody>
-                {% for option in opts.optCodeList %}
-                    <tr>
-                        <td>{{ codeDict|getDictVal:option }}</td>
-                        <td>{{ opts|getDictVal:option }}</td>
-                    </tr>
-                {% endfor %}
+            {% for index in opts.indexList %}
+                <tr>
+                    <td>{{ opts|getDictVal:index|getDictVal:"n" }}</td>
+                    <td>{{ opts|getDictVal:index|getDictVal:"l1" }}</td>
+                    {% if opts|getDictVal:index|getDictVal:"c1"|slice:"1" == "+" %}
+                        <td class="lead text-success">{{ opts|getDictVal:index|getDictVal:"c1" }}</td>
+                        <td class="lead text-success">{{ opts|getDictVal:index|getDictVal:"p2" }}</td>
+                    {% else %}
+                        <td class="lead text-danger">{{ opts|getDictVal:index|getDictVal:"c1" }}</td>
+                        <td class="lead text-danger">{{ opts|getDictVal:index|getDictVal:"p2" }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
             </tbody>
         </table>
     </div>

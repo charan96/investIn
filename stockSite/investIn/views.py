@@ -2,7 +2,8 @@ from django.shortcuts import render
 from .forms import submitForm
 import re, csv, urllib2, sys
 
-defOpts = "nj1l1c1pohga2ry"
+defOpts = "nj1l1c1p2poma2r"
+quandl_KEY = "d9c2StRA1P6VRoQFAdL2"
 
 
 def index(request):
@@ -55,7 +56,16 @@ def charts(request, ticker):
 
 
 def stockIndexes(request):
-	pass
+	codeDict = makeCodeDict()
+	indexOpts = "snl1c1p2m"
+	obj = urllib2.urlopen(
+		"http://download.finance.yahoo.com/d/quotes.csv?s=^NYA,^XAX,^IXIC,^GSPC,^OEX,^SPSUPX,^VIX,^RUT,^FTSE,^N225,^GDAXI,^HSI,^AORD,^STI&f=" + indexOpts)
+	fullDict = {}
+	for indexList in csv.reader(obj):
+		fullDict[indexList[0]] = readOptsAndCreateDict(indexOpts, indexList)
+	fullDict["indexList"] = ['^NYA', '^XAX', '^IXIC', '^GSPC', '^OEX', '^SPSUPX', '^VIX', '^RUT', '^FTSE', '^N225',
+					 '^GDAXI', '^HSI', '^AORD', '^STI']
+	return render(request, 'investIn/stockIndices.html', {'opts': fullDict, 'codeDict': codeDict})
 
 
 def stockCompare(request):
