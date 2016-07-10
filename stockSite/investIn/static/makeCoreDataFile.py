@@ -14,5 +14,5 @@ jsonDict = {"defOpts": defOpts, "indexOpts": indexOpts, "quandlKEY": quandl_KEY,
 
 jsonFile = "coreData.json"
 
-with open(jsonFile, 'w') as outf:
-	json.dump(jsonDict, outf)
+with open(jsonFile, 'w') as outfile:
+	json.dump(jsonDict, outfile)
