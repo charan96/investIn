@@ -1,0 +1,8 @@
+{
+  "defOpts": "nj1l1c1p2poma2r",
+  "indicesStr": "^NYA,^XAX,^IXIC,^GSPC,^OEX,^SPSUPX,^VIX,^RUT,^FTSE,^FCHI,^GDAXI,^N225,^HSI,^STI,^SHCOMP",
+  "indexOpts": "snl1c1p2m",
+  "baseURL": "http://download.finance.yahoo.com/d/quotes.csv?s=",
+  "optsURL": "&f=",
+  "quandlKEY": "d9c2StRA1P6VRoQFAdL2"
+}
