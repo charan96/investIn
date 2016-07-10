@@ -48,9 +48,9 @@
     <div class="col-md-6 col-md-offset-1">
         <h3 class="text-center">{{ opts|getDictVal:"n" }}</h3>
         {% if opts|getDictVal:"l1" >= opts|getDictVal:"p" %}
-            <span><h2 class="text-success text-center">{{ opts|getDictVal:"l1" }}&nbsp&nbsp&nbsp&nbsp<span class="lead text-center">({{ opts|getDictVal:"c1" }} | {{ opts|getDictVal:"p2" }})</span></h2></span>
+            <span><h2 class="text-success text-center">{{ opts|getDictVal:"l1" }}&nbsp&nbsp&nbsp<span class="lead text-center">{{ opts|getDictVal:"c1" }} &nbsp ({{ opts|getDictVal:"p2" }})</span></h2></span>
         {% else %}
-            <span><h2 class="text-danger text-center">{{ opts|getDictVal:"l1" }}&nbsp&nbsp&nbsp&nbsp<span class="lead text-center">({{ opts|getDictVal:"c1" }} | {{ opts|getDictVal:"p2" }})</span></h2></span>
+            <span><h2 class="text-danger text-center">{{ opts|getDictVal:"l1" }}&nbsp&nbsp&nbsp<span class="lead text-center">{{ opts|getDictVal:"c1" }} &nbsp ({{ opts|getDictVal:"p2" }})</span></h2></span>
         {% endif %}
     </div>
 

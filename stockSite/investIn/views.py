@@ -1,10 +1,9 @@
 from django.shortcuts import render
 from .forms import submitForm
-import re, csv, urllib2, sys
+import re, csv, urllib2, sys, json
 
-defOpts = "nj1l1c1p2poma2r"
-quandl_KEY = "d9c2StRA1P6VRoQFAdL2"
-
+with open('investIn/static/coreData.json', 'r') as core:
+	coreData = json.load(core)
 
 def index(request):
 	"""
@@ -20,8 +19,8 @@ def index(request):
 		if form.is_valid():
 			ticker = str(request.POST.get('ticker', '')).upper()
 			if sanitizeTicker(ticker):
-				stockData = getStockValueList(ticker, defOpts)
-				templateOpts = readOptsAndCreateDict(defOpts, stockData)
+				stockData = getStockValueList(ticker, coreData["defOpts"])
+				templateOpts = readOptsAndCreateDict(coreData["defOpts"], stockData)
 				return render(request, 'investIn/demoDisplayTicker.html',
 						  {'ticker': ticker, 'opts': templateOpts, 'codeDict': codeDict})
 			else:
@@ -31,14 +30,24 @@ def index(request):
 
 
 def display(request, ticker):
+	"""
+	:param request: HTML request for display
+	:param ticker: sanitized ticker from user
+	:return: appropriate template with dictionary
+	"""
 	codeDict = makeCodeDict()
-	stockData = getStockValueList(ticker, defOpts)
-	templateOpts = readOptsAndCreateDict(defOpts, stockData)
+	stockData = getStockValueList(ticker, coreData["defOpts"])
+	templateOpts = readOptsAndCreateDict(coreData["defOpts"], stockData)
 	return render(request, 'investIn/demoDisplayTicker.html',
 			  {'ticker': ticker, 'opts': templateOpts, 'codeDict': codeDict})
 
 
 def keyStats(request, ticker):
+	"""
+	:param request: HTML request for key stats
+	:param ticker: sanitized ticker from user
+	:return: appropriate template with dictionary
+	"""
 	keyStatOpts = getBasicStatsOpts("p2poabyr1m6m8m3m4ms6wdee7j4rr6s7p5")
 	codeDict = makeCodeDict()
 	stockData = getStockValueList(ticker, keyStatOpts)
@@ -48,23 +57,33 @@ def keyStats(request, ticker):
 
 
 def charts(request, ticker):
+	"""
+	:param request: HTML request for charts
+	:param ticker: sanitized ticker from user
+	:return: appropriate template with dictionary
+	"""
 	codeDict = makeCodeDict()
-	stockData = getStockValueList(ticker, defOpts)
-	templateOpts = readOptsAndCreateDict(defOpts, stockData)
+	stockData = getStockValueList(ticker, coreData["defOpts"])
+	templateOpts = readOptsAndCreateDict(coreData["defOpts"], stockData)
 	return render(request, 'investIn/charts.html',
 			  {'ticker': ticker, 'opts': templateOpts, 'codeDict': codeDict})
 
 
 def stockIndexes(request):
+	"""
+	:param request: HTML request for stock indices
+	:param ticker: sanitized ticker from user
+	:return: appropriate template with dictionary
+	"""
 	codeDict = makeCodeDict()
-	indexOpts = "snl1c1p2m"
-	obj = urllib2.urlopen(
-		"http://download.finance.yahoo.com/d/quotes.csv?s=^NYA,^XAX,^IXIC,^GSPC,^OEX,^SPSUPX,^VIX,^RUT,^FTSE,^N225,^GDAXI,^HSI,^AORD,^STI&f=" + indexOpts)
+	indexOpts = coreData['indexOpts']
+	strOfIndices = coreData['indicesStr']
+	obj = urllib2.urlopen(coreData['baseURL'] + strOfIndices + coreData['optsURL'] + indexOpts)
+
 	fullDict = {}
 	for indexList in csv.reader(obj):
 		fullDict[indexList[0]] = readOptsAndCreateDict(indexOpts, indexList)
-	fullDict["indexList"] = ['^NYA', '^XAX', '^IXIC', '^GSPC', '^OEX', '^SPSUPX', '^VIX', '^RUT', '^FTSE', '^N225',
-					 '^GDAXI', '^HSI', '^AORD', '^STI']
+	fullDict["indexList"] = strOfIndices.split(",")
 	return render(request, 'investIn/stockIndices.html', {'opts': fullDict, 'codeDict': codeDict})
 
 
@@ -77,6 +96,10 @@ def customStats(request):
 
 
 def getBasicStatsOpts(additionalOpts):
+	"""
+	:param additionalOpts: string of additional options
+	:return: string of all options
+	"""
 	return "nj1l1c1" + additionalOpts
 
 
@@ -98,8 +121,8 @@ def createReqURL(ticker, opts):
 	:param opts: option codes entered by user
 	:return: URL string with ticker and option codes
 	"""
-	baseURL = "http://finance.yahoo.com/d/quotes.csv?s="
-	optionsURL = "&f="
+	baseURL = coreData['baseURL']
+	optionsURL = coreData['optsURL']
 	return baseURL + ticker + optionsURL + opts
 
 
