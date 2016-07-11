@@ -1,6 +1,6 @@
 import calendar
 import datetime
-from crispy_forms.bootstrap import PrependedText, FormActions
+from crispy_forms.bootstrap import PrependedText, FormActions, Field
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, HTML, Div
 from django import forms
@@ -39,4 +39,28 @@ class submitForm(forms.Form):
 			),
 			HTML("<br><br>"),
 			Div('month', 'date', 'year', css_class="col-md-8 col-md-offset-2")
+		)
+
+
+class doubleStockForm(forms.Form):
+	ticker1 = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Stock 1'}))
+	ticker2 = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Stock 2'}))
+
+	def __init__(self, *args, **kwargs):
+		super(doubleStockForm, self).__init__(*args, **kwargs)
+		self.helper = FormHelper()
+		self.helper.form_class = 'form-inline'
+		self.helper.form_method = 'post'
+		self.helper.form_action = ""
+		self.helper.form_show_labels = False
+		self.helper.layout = Layout(
+			HTML("<br><br><br>"),
+			Field('ticker1', 'Stock 1&nbsp', autocomplete='off'),
+			HTML("<br><br>"),
+			Field('ticker2', 'Stock 2&nbsp', autocomplete='off'),
+			HTML("&nbsp&nbsp&nbsp&nbsp&nbsp"),
+			HTML("<br><br><br>"),
+			FormActions(
+				Submit('submit', 'Submit', css_class="btn btn-success col-md-offset-8")
+			),
 		)

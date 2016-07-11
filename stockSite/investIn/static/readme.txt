@@ -6,3 +6,6 @@ README
 2) To make the coreData.json, run the makeCoreDataFile.py with python 2.7, which is used by views.py
 
    E.g, python makeCoreDataFile.py
+
+
+   nj1l1c1p2poma2r

@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .forms import submitForm
-import stockdata, urllib2, csv
+from .forms import submitForm, doubleStockForm
+import stockdata
 
 coreData = stockdata.getCoreDataFromJSON()
 codeDict = stockdata.makeCodeDict()
@@ -100,4 +100,35 @@ def stockIndexes(request):
 
 
 def stockCompare(request):
-	return render(request, 'investIn/stockCompare.html', {})
+	"""
+	:param request: HTML request for comparing two stocks
+	:return: appropriate template with dictionary
+	"""
+	formClass = doubleStockForm
+	defOpts = coreData['defOpts']
+	baseURL = coreData['baseURL']
+	optsURL = coreData['optsURL']
+
+	if request.method == 'POST':
+		form = formClass(data=request.POST)
+
+		if form.is_valid():
+			ticker1 = str(request.POST.get('ticker1', '')).upper()
+			ticker2 = str(request.POST.get('ticker2', '')).upper()
+
+			if stockdata.sanitizeTicker(ticker1) and stockdata.sanitizeTicker(ticker2):
+				stockData1 = stockdata.getStockValueList(ticker1, defOpts, baseURL, optsURL)
+				stockData2 = stockdata.getStockValueList(ticker2, defOpts, baseURL, optsURL)
+
+				templateOpts1 = stockdata.readOptsAndCreateDict(defOpts, stockData1)
+				templateOpts2 = stockdata.readOptsAndCreateDict(defOpts, stockData2)
+
+				return render(request, 'investIn/doubleStockDisplay.html',
+						  {'ticker1': ticker1, 'ticker2': ticker2, 'opts1': templateOpts1,
+						   'opts2': templateOpts2,
+						   'codeDict': codeDict})
+			else:
+				errTickerStr = ticker1 + " and/or " + ticker2
+				return render(request, 'investIn/error.html', {'ticker': errTickerStr})
+
+	return render(request, 'investIn/stockCompare.html', {'form': doubleStockForm})

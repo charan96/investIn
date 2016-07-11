@@ -1,0 +1,156 @@
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+{% load getDictVal %}
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo Display</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+</head>
+<!--<body background="{% static "blackback.jpg" %}" background-size=100%>-->
+<body>
+    <h1 class="text-center text-primary"><a href="/investIn" style="text-decoration:none">Invest In</a></h1>
+    <hr>
+
+    <!---------- SIDE BAR ---------->
+    <div class="col-md-3 col-md-offset-9" style="position:fixed">
+        <table class="table table-hover">
+            <tbody>
+                <tr>
+                    <td class="lead text-center"><a href="/investIn" style="text-decoration:none">Home</a></td>
+                </tr>
+                <tr>
+                    <td class="lead text-center"><a href="/investIn/" style="text-decoration:none">Summary</a></td>
+                </tr>
+                <tr>
+                    <td class="lead text-center"><a href="/investIn/" style="text-decoration:none">Key Stats</a></td>
+                </tr>
+                <tr>
+                    <td class="lead text-center"><a href="/investIn/" style="text-decoration:none">Charts</a></td>
+                </tr>
+                <tr>
+                    <td class="lead text-center"><a href="/investIn/indices" style="text-decoration:none">World Indices</a></td>
+                </tr>
+                <tr>
+                    <td class="lead text-center success"><a href="/investIn/compare" style="text-decoration:none">Compare</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container pull-left">
+        <div class="row">
+            <div class="col-md-5">
+                <table class="table">
+                    <caption class="lead text-center">{{ ticker1 }}</caption>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"n" }}</td>
+                                <td>{{ opts1|getDictVal:"n" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"j1" }}</td>
+                                <td>{{ opts1|getDictVal:"j1" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"l1" }}</td>
+                                <td>{{ opts1|getDictVal:"l1" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"c1" }}</td>
+                                <td>{{ opts1|getDictVal:"c1" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"p2" }}</td>
+                                <td>{{ opts1|getDictVal:"p2" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"p" }}</td>
+                                <td>{{ opts1|getDictVal:"p" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"o" }}</td>
+                                <td>{{ opts1|getDictVal:"o" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"m" }}</td>
+                                <td>{{ opts1|getDictVal:"m" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"a2" }}</td>
+                                <td>{{ opts1|getDictVal:"a2" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"r" }}</td>
+                                <td>{{ opts1|getDictVal:"r" }}</td>
+                            </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-md-5">
+                <table class="table">
+                    <caption class="lead text-center">{{ ticker2 }}</caption>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                           <tr>
+                                <td>{{ codeDict|getDictVal:"n" }}</td>
+                                <td>{{ opts2|getDictVal:"n" }}</td>
+                           </tr>
+                           <tr>
+                                <td>{{ codeDict|getDictVal:"j1" }}</td>
+                                <td>{{ opts2|getDictVal:"j1" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"l1" }}</td>
+                                <td>{{ opts2|getDictVal:"l1" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"c1" }}</td>
+                                <td>{{ opts2|getDictVal:"c1" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"p2" }}</td>
+                                <td>{{ opts2|getDictVal:"p2" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"p" }}</td>
+                                <td>{{ opts2|getDictVal:"p" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"o" }}</td>
+                                <td>{{ opts2|getDictVal:"o" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"m" }}</td>
+                                <td>{{ opts2|getDictVal:"m" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"a2" }}</td>
+                                <td>{{ opts2|getDictVal:"a2" }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ codeDict|getDictVal:"r" }}</td>
+                                <td>{{ opts2|getDictVal:"r" }}</td>
+                            </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+</body>
+</html>
