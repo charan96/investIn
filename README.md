@@ -12,3 +12,5 @@ Further development is aimed towards incorporating Machine Learning features int
 ![Alt text](/screenshots/4.png)
 ![Alt text](/screenshots/5.png)
 ![Alt text](/screenshots/6.png)
+![Alt text](/screenshots/7.png)
+![Alt text](/screenshots/8.png)
