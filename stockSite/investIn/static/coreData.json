@@ -4,5 +4,6 @@
   "indexOpts": "snl1c1p2m",
   "baseURL": "http://download.finance.yahoo.com/d/quotes.csv?s=",
   "optsURL": "&f=",
+  "keyStatsOpts": "p2poabyr1m6m8m3m4ms6wdee7j4rr6s7p5",
   "quandlKEY": "d9c2StRA1P6VRoQFAdL2"
 }

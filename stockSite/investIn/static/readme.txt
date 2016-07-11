@@ -1,5 +1,8 @@
 README
 
-run the makeCoreDataFile.py with python 2.7 to make the coreData.json which is used by views.py
+1) To add any new attributes, add new variables in the makeCoreDataFile.py script and run the script
 
-E.g, python makeCoreDataFile.py
+
+2) To make the coreData.json, run the makeCoreDataFile.py with python 2.7, which is used by views.py
+
+   E.g, python makeCoreDataFile.py

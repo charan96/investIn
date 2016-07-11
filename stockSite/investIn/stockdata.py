@@ -110,3 +110,22 @@ def readOptsAndCreateDict(opts, stockData):
 	optDict['optsString'] = opts
 	optDict['optCodeList'] = optionCodeList
 	return optDict
+
+
+def getIndicesValuesDict(indexOpts, strOfIndices, baseURL, optsURL):
+	"""
+
+	:param indexOpts: index options from coreData JSON
+	:param strOfIndices: string of indices from coreData JSON
+	:param baseURL: base url from coreData JSON
+	:param optsURL: options url from coreData JSON
+	:return: dictionary of each index and its values
+	"""
+	fullDict = {}
+	obj = urllib2.urlopen(baseURL + strOfIndices + optsURL + indexOpts)
+
+	for indexList in csv.reader(obj):
+		fullDict[indexList[0]] = readOptsAndCreateDict(indexOpts, indexList)
+	fullDict["indexList"] = strOfIndices.split(",")
+
+	return fullDict
