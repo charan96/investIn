@@ -32,6 +32,8 @@ def sanitizeTicker(ticker):
 def createReqURL(ticker, opts, baseURL, optionsURL):
 	"""
 	Adds ticker and options to the base URL to create the request URL
+	:param baseURL: base url from coreData JSON
+	:param optionsURL: options url from coreData JSON
 	:param ticker: sanitized ticker from user
 	:param opts: option codes entered by user
 	:return: URL string with ticker and option codes

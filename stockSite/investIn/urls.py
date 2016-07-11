@@ -8,5 +8,4 @@ urlpatterns = [
 	url(r'^charts/(?P<ticker>[A-Z]{1,5})', views.charts, name='charts'),
 	url(r'^indices/', views.stockIndexes, name='stockIndexes'),
 	url(r'^compare/', views.stockCompare, name='stockCompare'),
-	url(r'^customStats/(?P<ticker>[A-Z]{1,5})', views.customStats, name='customStats'),
 ]

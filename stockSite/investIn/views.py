@@ -90,7 +90,3 @@ def stockIndexes(request):
 
 def stockCompare(request):
 	pass
-
-
-def customStats(request):
-	pass
